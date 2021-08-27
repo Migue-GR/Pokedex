@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Pokédex</string>
+    <string name="egg_groups">Grupos huevo:</string>
+    <string name="capture_rate">Ratio captura:</string>
+    <string name="base_happiness">Felicidad base:</string>
+    <string name="something_went_wrong">Algo salió mal. 😥</string>
+    <string name="error_while_getting_pokes">Error al obtener la lista de pokémon. 😥</string>
+    <string name="abilities">Habilidades</string>
+    <string name="evolution_chain">Línea evolutiva</string>
+    <string name="poke_info">Poke info</string>
+    <string name="press_again_to_exit">Presiona de nuevo para salir</string>
+    <string name="select_your_favorite_pokemon">¡Selecciona a tu pokémon favorito!</string>
+    <string name="error_pokemon_not_found">Este pokémon no pertenece a la primera generación. 😥</string>
+</resources>
