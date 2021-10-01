@@ -24,6 +24,11 @@ abstract class BaseFragmentBinding<T : ViewBinding> : Fragment() {
         onViewCreated()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
+
     abstract fun bind(): T
     abstract fun onViewCreated()
 }
