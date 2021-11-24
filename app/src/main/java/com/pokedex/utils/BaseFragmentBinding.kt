@@ -8,15 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragmentBinding<T : ViewBinding> : Fragment() {
-    lateinit var binding: T
+    private var _binding: T? = null
+    val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = bind()
-        return binding.root
+        _binding = bind()
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,7 +27,7 @@ abstract class BaseFragmentBinding<T : ViewBinding> : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 
     abstract fun bind(): T

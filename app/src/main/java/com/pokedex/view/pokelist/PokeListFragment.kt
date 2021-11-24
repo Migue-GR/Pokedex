@@ -23,6 +23,14 @@ class PokeListFragment : BaseFragmentBinding<FragmentPokeListBinding>() {
         updatePokeList()
     }
 
+    private fun setObservers() {
+        pokeViewModel.pokes.observe(viewLifecycleOwner, { pokes ->
+            binding.rcvPokes.layoutManager = LinearLayoutManager(requireContext())
+            binding.rcvPokes.adapter = PokeAdapter(pokes, ::onPokeClicked)
+            pokeViewModel.rcvState?.let { binding.rcvPokes.layoutManager?.onRestoreInstanceState(it) }
+        })
+    }
+
     private fun updatePokeList() {
         when {
             shouldShowRemotePokes -> {
@@ -40,22 +48,10 @@ class PokeListFragment : BaseFragmentBinding<FragmentPokeListBinding>() {
         }
     }
 
-    private fun setObservers() {
-        pokeViewModel.pokes.observe(viewLifecycleOwner, { pokes ->
-            binding.rcvPokes.layoutManager = LinearLayoutManager(requireContext())
-            binding.rcvPokes.adapter = PokeAdapter(pokes, ::onPokeClicked)
-            pokeViewModel.rcvState?.let { binding.rcvPokes.layoutManager?.onRestoreInstanceState(it) }
-        })
-    }
-
     private fun onPokeClicked(poke: Pokemon) {
+        pokeViewModel.rcvState = binding.rcvPokes.layoutManager?.onSaveInstanceState()
         val directions = PokeListFragmentDirections.actionPokeListFragmentToPokeFragment(poke)
         navigateSafelyWithDirections(directions)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        pokeViewModel.rcvState = binding.rcvPokes.layoutManager?.onSaveInstanceState()
     }
 
     companion object {

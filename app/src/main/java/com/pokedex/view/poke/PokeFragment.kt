@@ -22,6 +22,15 @@ class PokeFragment : BaseFragmentBinding<FragmentPokeBinding>() {
         pokeViewModel.getPokeByName(pokemon.name)
     }
 
+    private fun setObservers() {
+        pokeViewModel.poke.observe(viewLifecycleOwner, { poke ->
+            pokemon = poke
+            binding.tvBaseHappiness.text = poke.baseHappiness.toString()
+            binding.tvCaptureRate.text = poke.captureRate.toString()
+            binding.tvEggGroups.text = poke.eggGroups
+        })
+    }
+
     private fun setOnClickListeners() {
         binding.btnAbilities.setOnSingleClickListener {
             val directions = PokeFragmentDirections.actionPokeFragmentToAbilitiesFragment(pokemon)
@@ -31,14 +40,5 @@ class PokeFragment : BaseFragmentBinding<FragmentPokeBinding>() {
             val directions = PokeFragmentDirections.actionPokeFragmentToEvolutionsFragment(pokemon)
             navigateSafelyWithDirections(directions)
         }
-    }
-
-    private fun setObservers() {
-        pokeViewModel.poke.observe(viewLifecycleOwner, { poke ->
-            pokemon = poke
-            binding.tvBaseHappiness.text = poke.baseHappiness.toString()
-            binding.tvCaptureRate.text = poke.captureRate.toString()
-            binding.tvEggGroups.text = poke.eggGroups
-        })
     }
 }
